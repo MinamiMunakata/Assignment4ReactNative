@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 4707,
-  "expoServerNgrokUrl": "https://pd-kcy.minamiciccc.assignment4.exp.direct",
-  "packagerNgrokUrl": "https://packager.pd-kcy.minamiciccc.assignment4.exp.direct",
-  "ngrokPid": 4719
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
