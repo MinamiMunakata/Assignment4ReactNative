@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native'
 import { login } from '../api'
+
 interface IState {
   username: string
   password: string
@@ -47,6 +48,7 @@ export class LoginScreen extends React.Component<{}, IState> {
       const success = await login(this.state.username, this.state.password)
       await this._storeData(this.state.username, this.state.password)
       // navigate to main screen
+      this.props.navigation.navigate('Main')
       this.setState({ err: 'Success!' })
     } catch (err) {
       const errMessage = err.message

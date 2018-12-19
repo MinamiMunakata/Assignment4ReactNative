@@ -1,34 +1,75 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { LoginScreen } from './Screens/LoginScreen'
-import { ContactListScreen } from './Screens/ContactListScreen'
-import { AddContactScreen } from './Screens/AddContactScreen'
-import { SettingsScreen } from './Screens/SettingsScreen'
+import {
+  LoginScreen,
+  AddContactScreen,
+  ContactListScreen,
+  SettingsScreen,
+} from './Screens'
 import {
   createStackNavigator,
   createSwitchNavigator,
   createBottomTabNavigator,
   createAppContainer,
 } from 'react-navigation'
+import { fetchUsers } from './api'
+import Icon from 'react-native-vector-icons/Ionicons'
 
-const MainStack = createStackNavigator({
-  ContactList: ContactListScreen,
-  AddContact: AddContactScreen,
-})
+const MainStack = createAppContainer(
+  createStackNavigator(
+    {
+      ContactList: ContactListScreen,
+      AddContact: AddContactScreen,
+    },
+    {
+      initialRouteName: 'ContactList',
+    }
+  )
+)
 
-const MainTabs = createBottomTabNavigator({
-  Contacts: MainStack,
-  Settings: SettingsScreen,
-})
+MainStack.navigationOptions = {
+  tabBarIcon: ({ tintColor }) => (
+    <Icon name={'ios-contacts'} size={25} color={tintColor} />
+  ),
+}
 
-const AppNavigator = createSwitchNavigator({
-  Login: LoginScreen,
-  Main: MainTabs,
-})
+const MainTabs = createAppContainer(
+  createBottomTabNavigator({
+    Contacts: MainStack,
+    Settings: SettingsScreen,
+  })
+)
+
+const AppNavigator = createAppContainer(
+  createSwitchNavigator({
+    // Login: LoginScreen,
+    Main: MainTabs,
+  })
+)
 
 export default class App extends React.Component {
+  state = {
+    contacts: null,
+  }
+
+  componentDidMount() {
+    this.getUsers()
+  }
+
+  getUsers = async () => {
+    const results = await fetchUsers()
+    this.setState({
+      contacts: results,
+    })
+  }
   render() {
-    return <LoginScreen />
+    return (
+      <AppNavigator
+        screenProps={{
+          contacts: this.state.contacts,
+        }}
+      />
+    )
   }
 }
 
