@@ -46,6 +46,7 @@ export class LoginScreen extends React.Component<{}, IState> {
     try {
       const success = await login(this.state.username, this.state.password)
       await this._storeData(this.state.username, this.state.password)
+      // navigate to main screen
       this.setState({ err: 'Success!' })
     } catch (err) {
       const errMessage = err.message
