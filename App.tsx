@@ -62,11 +62,18 @@ export default class App extends React.Component {
       contacts: results,
     })
   }
+
+  addContact = newContact => {
+    this.setState((prev: { contacts: [] }) => ({
+      contacts: [...prev.contacts, newContact],
+    }))
+  }
   render() {
     return (
       <AppNavigator
         screenProps={{
           contacts: this.state.contacts,
+          addContact: this.addContact,
         }}
       />
     )

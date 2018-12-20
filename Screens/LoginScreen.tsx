@@ -9,18 +9,24 @@ import {
 } from 'react-native'
 import { login } from '../api'
 
+interface IProps {
+  navigation: {
+    navigate: (route: string) => void
+  }
+}
+
 interface IState {
   username: string
   password: string
   err: string
 }
-export class LoginScreen extends React.Component<{}, IState> {
+export class LoginScreen extends React.Component<IProps, IState> {
   state = {
     username: '',
     password: '',
     err: '',
   }
-  constructor(props: {}) {
+  constructor(props: IProps) {
     super(props)
     this._fetchData()
   }

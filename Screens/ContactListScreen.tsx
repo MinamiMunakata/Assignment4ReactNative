@@ -1,8 +1,15 @@
 import React from 'react'
 import { StyleSheet, Text, View, SafeAreaView, Button } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons'
+import SectionListContacts from '../Components/SectionListContacts'
 
-export default class ContactListScreen extends React.Component {
+interface IProps {
+  screenProps: {
+    contacts: []
+  }
+}
+
+export default class ContactListScreen extends React.Component<IProps, {}> {
   static navigationOptions = ({ navigation }) => {
     return {
       headerTitle: 'Contacts',
@@ -14,7 +21,9 @@ export default class ContactListScreen extends React.Component {
   render() {
     return (
       <SafeAreaView>
-        <Text>This is ContactListScreen</Text>
+        {this.props.screenProps.contacts && (
+          <SectionListContacts contacts={this.props.screenProps.contacts} />
+        )}
       </SafeAreaView>
     )
   }
@@ -24,7 +33,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })
